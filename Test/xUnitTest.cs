@@ -29,7 +29,7 @@ namespace Test
             Assert.Equal(p2.DateOfBirth, new DateTime(19761201));
         }
         [Fact]
-        public void testEmaileFail()
+        public void testEmailFail()
         {
             // In-line setup     
             Person p3 = new Person("Sven", "Mellander", "sven.mellander&hotmail.com");
