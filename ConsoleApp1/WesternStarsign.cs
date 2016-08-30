@@ -19,6 +19,5 @@ namespace ConsoleApp1
         Vågen, // 23 september – 23 oktober
         Skorpionen, // 24 oktober – 22 november
         Skytten, // 23 november – 21 december
-
     }
 }
