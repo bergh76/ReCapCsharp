@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using UnitTestProject1;
@@ -12,22 +13,31 @@ namespace Test
 
         [Fact]
         public void testAllPassed()
-        {      // In-line setup     
-            Person p1 = new Person("Andreas", "Bergh", "andreas__bergh@hotmail.com", new DateTime(19761201));
+        {
+            // In-line setup     
+            string bDate = "19761201";
+            DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture,
+                                       DateTimeStyles.None);
+            Person p1 = new Person("Andreas", "Bergh", "andreas__bergh@hotmail.com", getDate);
             Assert.Equal(p1.FirstName ,"Andreas");
             Assert.Equal(p1.LastName, "Bergh");
             Assert.Equal(p1.Email, "andreas__bergh@hotmail.com");
-            Assert.Equal(p1.DateOfBirth, new DateTime(19761201));
+            Assert.Equal(p1.DateOfBirth, getDate);
         }
+
         [Fact]
         public void testFailWrongDataInputCheck()
         {
             // In-line setup     
-            Person p2 = new Person("Knut", "Kragballe", new DateTime(17920518));
+            string bDate = "19761201";
+            DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture,
+                                       DateTimeStyles.None);
+            Person p2 = new Person("Knut", "Kragballe", getDate);
             Assert.Equal(p2.FirstName, "Andreas");
             Assert.Equal(p2.LastName, "Bergh");
-            Assert.Equal(p2.DateOfBirth, new DateTime(19761201));
+            Assert.Equal(p2.DateOfBirth, getDate);
         }
+
         [Fact]
         public void testEmailFail()
         {
@@ -37,12 +47,6 @@ namespace Test
             Assert.Equal(p3.LastName, "Mellander");
             Assert.Equal(p3.Email, "sven.menlander&hotmail.com");
         }
-
-        //[Fact]
-        //public void testStatusFailed()
-        //{
-        //    // In-line setup     
-        //    Person p4 = new Person("Andreas", "Bergh", "andreas__bergh%hotmail.com", new DateTime(19761201));            
-        //}
+        
     }
 }
