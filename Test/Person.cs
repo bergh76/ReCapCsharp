@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
-namespace UnitTestProject1
+namespace ConsoleApp
 {
-    class Person
+    class Person: Employee
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -26,44 +21,44 @@ namespace UnitTestProject1
         {
             FirstName = firstname;
             LastName = lastname;
-            var validDate = dateValidation(dateofbirth);
-            DateOfBirth = validDate;
-            var e = checkEmail(email); Email = e;
-            var adult = isAdult(DateOfBirth); ISAdult = adult;
+            DateOfBirth = dateValidation(dateofbirth);
+            Email = checkEmail(email);
+            ISAdult = isAdult(DateOfBirth);
             var sunsign = getSign(DateOfBirth); SunSign = sunsign.ToString();
-            var chineseSign = getZodiacsign(DateOfBirth); ChineseSign = chineseSign;
-            var bDay = isBirthday(DateOfBirth); ISBirthday = bDay;
-            var sName = screenName(FirstName, LastName, DateOfBirth); ScreenName = sName;
+            ChineseSign = getZodiacsign(DateOfBirth);
+            ISBirthday = isBirthday(DateOfBirth);
+            ScreenName = screenName(FirstName, LastName, DateOfBirth);
         }
 
         public Person(string firstname, string lastname, string email)
         {
             FirstName = firstname;
             LastName = lastname;
-            var e = checkEmail(email); Email = e;
-            var chineseSign = getZodiacsign(DateOfBirth); ChineseSign = chineseSign;
+            Email = checkEmail(email);
+            ISAdult = isAdult(DateOfBirth);
             var sunsign = getSign(DateOfBirth); SunSign = sunsign.ToString();
-            var bDay = isBirthday(DateOfBirth); ISBirthday = bDay;
-            var sName = screenName(FirstName, LastName, DateOfBirth); ScreenName = sName;
+            ChineseSign = getZodiacsign(DateOfBirth);
+            ISBirthday = isBirthday(DateOfBirth);
+            ScreenName = screenName(FirstName, LastName, DateOfBirth);
         }
 
         public Person(string firstname, string lastname, DateTime dateofbirth)
         {
             FirstName = firstname;
             LastName = lastname;
-            var validDate = dateValidation(dateofbirth); DateOfBirth = validDate;
-            var adult = isAdult(DateOfBirth); ISAdult = adult;
+            DateOfBirth = dateValidation(dateofbirth);
+            ISAdult = isAdult(DateOfBirth);
             var sunsign = getSign(DateOfBirth); SunSign = sunsign.ToString();
-            var chineseSign = getZodiacsign(DateOfBirth); ChineseSign = chineseSign;
-            var bDay = isBirthday(DateOfBirth); ISBirthday = bDay;
-            var sName = screenName(FirstName, LastName, DateOfBirth); ScreenName = sName;
+            ChineseSign = getZodiacsign(DateOfBirth);
+            ISBirthday = isBirthday(DateOfBirth);
+            ScreenName = screenName(FirstName, LastName, DateOfBirth);
         }
 
-        public DateTime dateValidation(DateTime dateofbirth)
+        private DateTime dateValidation(DateTime dateofbirth)
         {
             DateTime dateNow = DateTime.Now;
-            var valDate = dateofbirth.Ticks > dateNow.Ticks && dateofbirth != DateTime.MinValue;
-            if (valDate == true) return dateNow;
+            var valDate = dateofbirth > dateNow && dateofbirth != DateTime.MinValue;
+            if (valDate == true) throw new ArgumentException("Your birthdate is not valid");
             return dateofbirth;
         }
 
@@ -74,11 +69,10 @@ namespace UnitTestProject1
             var age = today.Year - DateOfBirth.Year;
             if (DateOfBirth > today.AddYears(-age)) age--;
             if (age >= 18) { return isAdult; }
-            if (age < 0) { age++; isAdult = false; return isAdult; }
             else { isAdult = false; return isAdult; }
         }
 
-        public string getZodiacsign(DateTime DateOfBirth)
+        private string getZodiacsign(DateTime DateOfBirth)
         {
             if (DateOfBirth != DateTime.MinValue)
             {
@@ -89,20 +83,19 @@ namespace UnitTestProject1
                 string sign = years[getSexTerre - 1];
                 return years[getSexTerre - 1];
             }
-            var message = "There is no date for sunsign calculation";
-            return message;
+            throw new ArgumentException("Cant calculate your chinesesign.\n Check your birthdate");
         }
 
         public bool isBirthday(DateTime DateOfBirth)
         {
             bool isBirthday = true;
             DateTime today = DateTime.Today;
-            if (DateOfBirth.Month != today.Month && DateOfBirth.Day != today.Day)
+            if (DateOfBirth.Month != today.Month || DateOfBirth.Day != today.Day)
             { isBirthday = false; return isBirthday; }
             return isBirthday;
         }
 
-        public string screenName(string FirstName, string LastName, DateTime DateOfBirth)
+        private string screenName(string FirstName, string LastName, DateTime DateOfBirth)
         {
             DateTime dateNow = DateTime.Now;
             if (DateOfBirth != DateTime.MinValue)
@@ -114,23 +107,27 @@ namespace UnitTestProject1
                 string screenName = FirstName.ToLower() + "." + LastName.ToLower() + nParam;
                 return screenName;
             }
-            var message = "No birthdate is assigned";
-            return message;
+            throw new ArgumentException("No birthdate is assigned");
         }
 
-        public string checkEmail(string email)
+        private string checkEmail(string email)
         {
-            var message = "Data for email is empty";
-            if (!string.IsNullOrEmpty(email))
+            bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
+            if (string.IsNullOrEmpty(email))
             {
-                bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
-                if (isEmail == true) { return email.ToLower(); }
-                else { return message; }
+                throw new ArgumentException("Data for email is empty");
             }
-            return message;
+            if (isEmail != true)
+            {
+                throw new ArgumentException("Data for email is empty");
+            }
+            else
+            {
+                return email.ToLower();
+            }
         }
 
-        public WesternStarsign getSign(DateTime DateOfBirth)
+        private WesternStarsign getSign(DateTime DateOfBirth)
         {
             switch (DateOfBirth.Month)
             {
@@ -162,5 +159,6 @@ namespace UnitTestProject1
                     if (DateOfBirth.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
             }
         }
+
     }
 }

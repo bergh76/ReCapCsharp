@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace ConsoleApp
 {
     public class Program
     {
@@ -28,7 +28,7 @@ namespace ConsoleApp1
             Console.ReadLine();
         }
 
-        public string setDate()
+        private string setDate()
         {
             Console.WriteLine("Insert birthyear [xxxx]:");
             string inYear = Console.ReadLine();
@@ -67,13 +67,14 @@ namespace ConsoleApp1
             }
             return age;
         }
-        public string PrintOutBirthday()
+
+        private string PrintOutBirthday()
         {
             _birthday = string.Format("{0}{1}{2}", _year, _month, _day);
             return _birthday;
         }
 
-        public WesternStarsign getSign()
+        private WesternStarsign getSign()
         {
             string bDate = _birthday;
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture,
@@ -109,7 +110,8 @@ namespace ConsoleApp1
 
             }
         }
-        public string getZodiacsign()
+
+        private string getZodiacsign()
         {
             string bDate = _birthday;
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture,
