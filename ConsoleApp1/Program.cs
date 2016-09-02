@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
@@ -68,13 +65,13 @@ namespace ConsoleApp
             return age;
         }
 
-        private string PrintOutBirthday()
+        public string PrintOutBirthday()
         {
             _birthday = string.Format("{0}{1}{2}", _year, _month, _day);
             return _birthday;
         }
 
-        private WesternStarsign getSign()
+        private Starsign getSign()
         {
             string bDate = _birthday;
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture,
@@ -82,31 +79,31 @@ namespace ConsoleApp
             switch (getDate.Month)
             {
                 case 1:
-                    if (getDate.Day < 20) return WesternStarsign.Stenbocken; else return WesternStarsign.Vattumannen;
+                    if (getDate.Day < 20) return Starsign.Stenbocken; else return Starsign.Vattumannen;
                 case 2:
-                    if (getDate.Day < 19) return WesternStarsign.Vattumannen; else return WesternStarsign.Fiskarna;
+                    if (getDate.Day < 19) return Starsign.Vattumannen; else return Starsign.Fiskarna;
                 case 3:
-                    if (getDate.Day < 21) return WesternStarsign.Fiskarna; else return WesternStarsign.Väduren;
+                    if (getDate.Day < 21) return Starsign.Fiskarna; else return Starsign.Väduren;
                 case 4:
-                    if (getDate.Day < 20) return WesternStarsign.Väduren; else return WesternStarsign.Oxen;
+                    if (getDate.Day < 20) return Starsign.Väduren; else return Starsign.Oxen;
                 case 5:
-                    if (getDate.Day < 21) return WesternStarsign.Oxen; else return WesternStarsign.Tvillingarna;
+                    if (getDate.Day < 21) return Starsign.Oxen; else return Starsign.Tvillingarna;
                 case 6:
-                    if (getDate.Day < 21) return WesternStarsign.Tvillingarna; else return WesternStarsign.Kräftan;
+                    if (getDate.Day < 21) return Starsign.Tvillingarna; else return Starsign.Kräftan;
                 case 7:
-                    if (getDate.Day < 23) return WesternStarsign.Kräftan; else return WesternStarsign.Lejonet;
+                    if (getDate.Day < 23) return Starsign.Kräftan; else return Starsign.Lejonet;
                 case 8:
-                    if (getDate.Day < 23) return WesternStarsign.Lejonet; else return WesternStarsign.Jungfrun;
+                    if (getDate.Day < 23) return Starsign.Lejonet; else return Starsign.Jungfrun;
                 case 9:
-                    if (getDate.Day < 23) return WesternStarsign.Jungfrun; else return WesternStarsign.Vågen;
+                    if (getDate.Day < 23) return Starsign.Jungfrun; else return Starsign.Vågen;
                 case 10:
-                    if (getDate.Day < 23) return WesternStarsign.Vågen; else return WesternStarsign.Skorpionen;
+                    if (getDate.Day < 23) return Starsign.Vågen; else return Starsign.Skorpionen;
                 case 11:
-                    if (getDate.Day < 23) return WesternStarsign.Skorpionen; else return WesternStarsign.Skytten;
+                    if (getDate.Day < 23) return Starsign.Skorpionen; else return Starsign.Skytten;
                 case 12:
-                    if (getDate.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
+                    if (getDate.Day < 22) return Starsign.Skytten; else return Starsign.Stenbocken;
                 default:
-                    if (getDate.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
+                    if (getDate.Day < 22) return Starsign.Skytten; else return Starsign.Stenbocken;
 
             }
         }

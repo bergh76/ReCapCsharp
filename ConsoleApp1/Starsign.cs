@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TestConsoleApp
+namespace ConsoleApp
 {
-    public enum WesternStarsign
+    public enum Starsign
     {
         Stenbocken, // 22 december – 20 januari
         Vattumannen, // 21 januari – 18 februari

@@ -2,7 +2,7 @@
 using System.Globalization;
 using Xunit;
 
-namespace ConsoleApp
+namespace TestConsoleApp
 {
     public class xUnitTest
     {
@@ -24,6 +24,36 @@ namespace ConsoleApp
             Assert.Equal(p1.Email, email);
             Assert.Equal(p1.DateOfBirth, getDate);
         }
+        [Fact]
+        public void testFirstNameNotNull()
+        {  
+            //Arrange
+            string firstname = "Andreas";
+            string lastname = "Bergh";
+            string email = "andreas__bergh@hotmail.com";
+            string bDate = "19761201";
+            DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            //Act
+            Person p1 = new Person(firstname, lastname, email, getDate);
+            //Assert
+            Assert.NotEmpty(p1.FirstName);
+        }
+
+        [Fact]
+        public void testFirstNameIsNull()
+        {
+            //Arrange
+            string firstname = "";
+            string lastname = "Bergh";
+            string email = "andreas__bergh@hotmail.com";
+            string bDate = "19761201";
+            DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            //Act
+            Person p1 = new Person(firstname, lastname, email, getDate);
+            //Assert
+            Assert.Null(p1.FirstName);
+        }
+
 
         [Fact]
         public void testFailWrongDataInputCheck()
@@ -70,18 +100,21 @@ namespace ConsoleApp
             Person p1 = new Person(firstname, lastname, email, getDate);
             //Assert
             Assert.Equal(p1.DateOfBirth, getDate);
-            //bool isBirthday = p1.isBirthday(getDate);
-            //Assert.(isBirthday);
+            bool isBirthday = p1.CheckIfBirthday(getDate);
+            Assert.True(isBirthday);
         }
 
         [Fact]
         public void testIfTodayIsBirthdayFail()
         {
-            // In-line setup     
+            // Arrange 
             var bDay = "19761201";
             DateTime getDate = DateTime.ParseExact(bDay, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            //Act
             Person p1 = new Person("Andreas", "Bergh", "andreas__bergh@hotmail.com", getDate);
-            Assert.Equal(p1.DateOfBirth, getDate);
+            bool isBirthday = p1.CheckIfBirthday(getDate);
+            //Assert
+            Assert.False(isBirthday);
         }
     }
 }

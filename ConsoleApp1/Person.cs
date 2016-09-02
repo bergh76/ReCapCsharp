@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
-namespace TestConsoleApp
+namespace ConsoleApp
 {
     class Person: Employee
     {
-        public string FirstName { get; set; }
+        public string FirstName
+        {
+            get { return CheckFirstName(); }
+            set { value = FirstName; }
+        }
         public string LastName { get; set; }
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
@@ -30,10 +34,10 @@ namespace TestConsoleApp
         //Constructors
         public Person(string firstname, string lastname, string email, DateTime dateofbirth)
         {
-            FirstName = CheckFirstName(firstname);
-            LastName = CheckLastName(lastname);
-            DateOfBirth = DateValidation(dateofbirth);
-            Email = CheckEmail(email);
+            FirstName = firstname;
+            LastName = lastname;
+            DateOfBirth = dateValidation(dateofbirth);
+            Email = checkEmail(email);
             _isAdult = ISAdult;
             _sunsign = string.Format("{0}",SunSign);
             _chinesesign = ChineseSign;
@@ -43,9 +47,9 @@ namespace TestConsoleApp
 
         public Person(string firstname, string lastname, string email)
         {
-            FirstName = CheckFirstName(firstname);
-            LastName = CheckLastName(lastname);
-            Email = CheckEmail(email);
+            FirstName = firstname;
+            LastName = lastname;
+            Email = checkEmail(email);
             _isAdult = ISAdult;
             _sunsign = string.Format("{0}", SunSign);
             _chinesesign = ChineseSign;
@@ -55,9 +59,9 @@ namespace TestConsoleApp
 
         public Person(string firstname, string lastname, DateTime dateofbirth)
         {
-            FirstName = CheckFirstName(firstname);
-            LastName = CheckLastName(lastname);
-            DateOfBirth = DateValidation(dateofbirth);
+            FirstName = firstname;
+            LastName = lastname;
+            DateOfBirth = dateValidation(dateofbirth);
             _isAdult = ISAdult;
             _sunsign = string.Format("{0}", SunSign);
             _chinesesign = ChineseSign;
@@ -65,28 +69,21 @@ namespace TestConsoleApp
             _screenname = ScreenName;
         }
 
-
-        //Methods
-        private string CheckFirstName(string firstname)
+        private string CheckFirstName()
         {
-            if (string.IsNullOrEmpty(firstname))
+            if (string.IsNullOrEmpty(FirstName))
                 throw new ArgumentException("No firstname is applied!");
-            return firstname;
+            return FirstName;
         }
-        private string CheckLastName(string lastname)
-        {
-            if (string.IsNullOrEmpty(lastname))
-                throw new ArgumentException("No lastname is applied!");
-            return lastname;
-        }
-        private DateTime DateValidation(DateTime dateofbirth)
+        //Methods
+        private DateTime dateValidation(DateTime dateofbirth)
         {
             var valDate = dateofbirth > DateTime.Now && dateofbirth != DateTime.MinValue;
             if (valDate == true) throw new ArgumentException("Your birthdate is not valid");
             return dateofbirth;
         }
 
-        private string CheckEmail(string email)
+        private string checkEmail(string email)
         {
             bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
             if (string.IsNullOrEmpty(email))

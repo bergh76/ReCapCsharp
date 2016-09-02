@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TestConsoleApp
+namespace ConsoleApp
 {
      internal class Employee : IPayable
     {
