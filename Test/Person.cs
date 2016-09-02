@@ -24,7 +24,7 @@ namespace ConsoleApp
             DateOfBirth = dateValidation(dateofbirth);
             Email = checkEmail(email);
             ISAdult = isAdult(DateOfBirth);
-            var sunsign = getSign(DateOfBirth); SunSign = sunsign.ToString();
+            SunSign = string.Format("{0}",getSign(DateOfBirth));
             ChineseSign = getZodiacsign(DateOfBirth);
             ISBirthday = isBirthday(DateOfBirth);
             ScreenName = screenName(FirstName, LastName, DateOfBirth);
@@ -36,7 +36,7 @@ namespace ConsoleApp
             LastName = lastname;
             Email = checkEmail(email);
             ISAdult = isAdult(DateOfBirth);
-            var sunsign = getSign(DateOfBirth); SunSign = sunsign.ToString();
+            SunSign = string.Format("{0}", getSign(DateOfBirth);
             ChineseSign = getZodiacsign(DateOfBirth);
             ISBirthday = isBirthday(DateOfBirth);
             ScreenName = screenName(FirstName, LastName, DateOfBirth);
@@ -48,7 +48,7 @@ namespace ConsoleApp
             LastName = lastname;
             DateOfBirth = dateValidation(dateofbirth);
             ISAdult = isAdult(DateOfBirth);
-            var sunsign = getSign(DateOfBirth); SunSign = sunsign.ToString();
+            SunSign = string.Format("{0}", getSign(DateOfBirth);
             ChineseSign = getZodiacsign(DateOfBirth);
             ISBirthday = isBirthday(DateOfBirth);
             ScreenName = screenName(FirstName, LastName, DateOfBirth);
