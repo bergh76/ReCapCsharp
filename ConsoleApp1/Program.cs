@@ -51,11 +51,11 @@ namespace ConsoleApp
             var age = today.Year - getDate.Year;
             if (getDate.Month == today.Month && getDate.Day == today.Day)
             {
-                Console.WriteLine("Congratulations! Today is your birthday");
+                throw new ArgumentException("Congratulations! Today is your birthday");
             }
             if (getDate.Year >= today.Year && getDate.Month > today.Month)
             {
-                Console.WriteLine("You have not yet been born.");
+                throw new ArgumentException("You have not yet been born.");
             }
             if (getDate > today.AddYears(-age))
             {
@@ -63,7 +63,7 @@ namespace ConsoleApp
             }
             if (age >= 135)
             {
-                Console.WriteLine("Get out of here. No way you are over 135 years old!");
+                throw new ArgumentException("Get out of here. No way you are over 135 years old!");
             }
             return age;
         }

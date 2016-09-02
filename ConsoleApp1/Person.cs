@@ -11,64 +11,19 @@ namespace ConsoleApp
         public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        readonly bool _isAdult;
-        private bool ISAdult
-        {
-            get
-            {
-                bool isAdult = true;
-                DateTime today = DateTime.Today;
-                var age = today.Year - DateOfBirth.Year;
-                if (DateOfBirth > today.AddYears(-age)) age--;
-                if (age >= 18) { return isAdult; }
-                else { isAdult = false; return isAdult; }
-            }
-        }
-        readonly string _sunsign;
-        private Enum SunSign { get {
-                switch (DateOfBirth.Month)
-                {
-                    case 1:
-                        if (DateOfBirth.Day < 20) return WesternStarsign.Stenbocken; else return WesternStarsign.Vattumannen;
-                    case 2:
-                        if (DateOfBirth.Day < 19) return WesternStarsign.Vattumannen; else return WesternStarsign.Fiskarna;
-                    case 3:
-                        if (DateOfBirth.Day < 21) return WesternStarsign.Fiskarna; else return WesternStarsign.Väduren;
-                    case 4:
-                        if (DateOfBirth.Day < 20) return WesternStarsign.Väduren; else return WesternStarsign.Oxen;
-                    case 5:
-                        if (DateOfBirth.Day < 21) return WesternStarsign.Oxen; else return WesternStarsign.Tvillingarna;
-                    case 6:
-                        if (DateOfBirth.Day < 21) return WesternStarsign.Tvillingarna; else return WesternStarsign.Kräftan;
-                    case 7:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Kräftan; else return WesternStarsign.Lejonet;
-                    case 8:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Lejonet; else return WesternStarsign.Jungfrun;
-                    case 9:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Jungfrun; else return WesternStarsign.Vågen;
-                    case 10:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Vågen; else return WesternStarsign.Skorpionen;
-                    case 11:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Skorpionen; else return WesternStarsign.Skytten;
-                    case 12:
-                        if (DateOfBirth.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
-                    default:
-                        if (DateOfBirth.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
-                }
-            } }
-        readonly string _chinesesign;
-        private string ChineseSign { get { } }
-        readonly bool _isBirthday;
-        private bool ISBirthday { get { } }
-        readonly string _screenname;
-        private string ScreenName { get { } }
+        readonly bool ISAdult;
+        readonly string SunSign;
+        readonly string ChineseSign;
+        readonly bool ISBirthday;
+        readonly string ScreenName;
+
         public Person(string firstname, string lastname, string email, DateTime dateofbirth)
         {
             FirstName = firstname;
             LastName = lastname;
             DateOfBirth = dateValidation(dateofbirth);
             Email = checkEmail(email);
-            _isAdult = isAdult(DateOfBirth);
+            ISAdult = isAdult(DateOfBirth);
             SunSign = string.Format("{0}",getSign(DateOfBirth));
             ChineseSign = getZodiacsign(DateOfBirth);
             ISBirthday = isBirthday(DateOfBirth);
@@ -80,7 +35,7 @@ namespace ConsoleApp
             FirstName = firstname;
             LastName = lastname;
             Email = checkEmail(email);
-            _isAdult = isAdult(DateOfBirth);
+            ISAdult = isAdult(DateOfBirth);
             SunSign = string.Format("{0}", getSign(DateOfBirth));
             ChineseSign = getZodiacsign(DateOfBirth);
             ISBirthday = isBirthday(DateOfBirth);
@@ -92,7 +47,7 @@ namespace ConsoleApp
             FirstName = firstname;
             LastName = lastname;
             DateOfBirth = dateValidation(dateofbirth);
-            _isAdult = isAdult(DateOfBirth);
+            ISAdult = isAdult(DateOfBirth);
             SunSign = string.Format("{0}", getSign(DateOfBirth));
             ChineseSign = getZodiacsign(DateOfBirth);
             ISBirthday = isBirthday(DateOfBirth);

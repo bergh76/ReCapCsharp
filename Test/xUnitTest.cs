@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using ConsoleApp;
 using Xunit;
 
 namespace ConsoleApp
@@ -14,12 +10,13 @@ namespace ConsoleApp
         public void testAllPassed()
         {
             // In-line setup     
-            //Act
+            //Arrange
             string firstname = "Andreas";
             string lastname = "Bergh";
             string email = "andreas__bergh@hotmail.com";
             string bDate = "19761201";
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            //Act
             Person p1 = new Person(firstname, lastname, email, getDate);
             //Assert
             Assert.Equal(p1.FirstName , firstname);
@@ -31,10 +28,12 @@ namespace ConsoleApp
         [Fact]
         public void testFailWrongDataInputCheck()
         {
-            // In-line setup     
+            //Arrange   
             string bDate = "19761201";
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            //Act
             Person p2 = new Person("Knut", "Kragballe", getDate);
+            //Assert
             Assert.NotEqual(p2.FirstName, "Andreas");
             Assert.NotEqual(p2.LastName, "Bergh");
             Assert.Equal(p2.DateOfBirth, getDate);
@@ -43,13 +42,13 @@ namespace ConsoleApp
         [Fact]
         public void testEmailFail()
         {
-            //Act
+            // Arrange
             string firstname = "Andreas";
             string lastname = "Bergh";
             string email = "andreas__bergh@hotmail.com";
             string bDate = "19761201";
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
-
+            //Act
             Person p3 = new Person(firstname, lastname, email, getDate);
             //Assert
             Assert.Equal(p3.FirstName, firstname);
@@ -60,19 +59,20 @@ namespace ConsoleApp
         [Fact]
         public void testIfTodayIsBirthdayPass()
         {
-            // In-line setup     
+            // Arrange     
             string firstname = "Andreas";
             string lastname = "Bergh";
             string email = "andreas__bergh@hotmail.com";
             string year = "1976";
-            DateTime date = DateTime.Now;
-            var month = date.Month.ToString().PadLeft(2, '0');
-            var day = date.Day.ToString().PadLeft(2, '0');
+            var month = DateTime.Now.Month.ToString().PadLeft(2, '0');
+            var day = DateTime.Now.Day.ToString().PadLeft(2, '0');
             var bDay = string.Format("{0}{1}{2}", year, month, day);
             DateTime getDate = DateTime.ParseExact(bDay, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
+            //Act
             Person p1 = new Person(firstname, lastname, email, getDate);
             Assert.Equal(p1.DateOfBirth, getDate);
             bool isBirthday = p1.isBirthday(getDate);
+            //Assert
             Assert.True(isBirthday);
         }
 
