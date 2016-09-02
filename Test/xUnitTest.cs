@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Security.Authentication;
 using Xunit;
 
 namespace TestConsoleApp
@@ -47,11 +48,13 @@ namespace TestConsoleApp
             string lastname = "Bergh";
             string email = "andreas__bergh@hotmail.com";
             string bDate = "19761201";
+            string message = "No firstname is applied!";
             DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture, DateTimeStyles.None);
             //Act
             Person p1 = new Person(firstname, lastname, email, getDate);
             //Assert
-            Assert.Null(p1.FirstName);
+            Exception ex = Assert.Throws<ArgumentException>(() => p1.FirstName);
+            Assert.Equal(message, ex.Message);
         }
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Testing.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text.RegularExpressions;
@@ -70,7 +71,9 @@ namespace TestConsoleApp
         private string CheckFirstName(string firstname)
         {
             if (string.IsNullOrEmpty(firstname))
+            { 
                 throw new ArgumentException("No firstname is applied!");
+            }
             return firstname;
         }
         private string CheckLastName(string lastname)
