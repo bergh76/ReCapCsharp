@@ -13,7 +13,7 @@ namespace ConsoleApp
         public DateTime DateOfBirth { get; set; }
 
         readonly bool _isAdult;
-        private bool ISAdult
+        public bool ISAdult
         {
             get
             {
@@ -25,7 +25,7 @@ namespace ConsoleApp
         }
 
         readonly string _sunsign;
-        private Enum SunSign
+        public Enum SunSign
         {
             get
             {
@@ -66,7 +66,7 @@ namespace ConsoleApp
         }
 
         readonly string _chinesesign;
-        private string ChineseSign
+        public string ChineseSign
         {
             get
             {
@@ -84,7 +84,7 @@ namespace ConsoleApp
         }
 
         readonly bool _isBirthday;
-        private bool ISBirthday
+        public bool ISBirthday
         {
             get
             {
@@ -97,7 +97,7 @@ namespace ConsoleApp
         }
 
         readonly List<string> _screenname;
-        private List<string> ScreenName
+        public List<string> ScreenName
         {
             get
             {

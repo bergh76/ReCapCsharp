@@ -5,24 +5,94 @@ namespace ConsoleApp
 {
     public class Program
     {
+        public string _firstname;
+        private string FirstName
+        {
+            get
+            {
+                Console.WriteLine("What is your firstname?:");
+                string fName = Console.ReadLine();
+                _firstname = fName;
+                return _firstname;
+            }
+            set { FirstName = value; }
+        }
+        public string _lastname;
         public string _month;
         public string _year;
         public string _day;
         public string _birthday;
+        public string _email;
         public int age;
+        private static string firstname;
+        private static string lastname;
+
         public static void Main(string[] args)
         {
             Program pOut = new Program();
+            var fName = pOut.FirstName; // pOut.SetFirstName();
+            pOut.SetLastName();
             pOut.setDate();
-            Console.WriteLine("Your date of birth is:{0}", pOut.PrintOutBirthday());
+            pOut.SetEmail();
+            pOut.PrintOutBirthday();
             pOut.age = pOut.CalculateAge();
+            pOut.PrintOutBirthday();
+            string bDate = pOut._birthday;
+            DateTime getDate = DateTime.ParseExact(bDate, "yyyyMMdd", CultureInfo.InvariantCulture,
+                                       DateTimeStyles.None);
             if (pOut.age > 0)
             {
-                Console.WriteLine("You are {0} years old.", pOut.age);
-                Console.WriteLine("Your chinese sign is: {0}", pOut.getZodiacsign());
-                Console.WriteLine("Your sunsign is: {0}", pOut.getSign());
+                Console.Clear();
+                Person p = new Person(pOut._firstname,pOut._lastname, pOut._email, getDate);
+                Console.WriteLine("Your name is: {0} {1}", p.FirstName, p.LastName);
+                Console.WriteLine("Your date of birth is:{0}", pOut._birthday);
+                Console.WriteLine("{0}", pOut.CheckIfDayIsBirthday(p));
+                Console.WriteLine("{0}", pOut.AdultCheck(p));
+                Console.WriteLine("Your chinese sign is:{0}", p.ChineseSign);
+                Console.WriteLine("Your sunsign is:{0}", p.SunSign);
             }
             Console.ReadLine();
+        }
+
+        private string SetFirstName()
+        {
+            Console.WriteLine("What is your firstname?:");
+            string fName = Console.ReadLine();
+            _firstname = fName;
+            return _firstname;
+        }
+        private string SetLastName()
+        {
+            Console.WriteLine("What is your lastname?:");
+            string lName = Console.ReadLine();
+            _lastname = lName;
+            return _lastname;
+        }
+
+        private string SetEmail()
+        {
+            Console.WriteLine("What is your emailadress?");
+            string email = Console.ReadLine();
+            _email = email;
+            return _email;
+        }
+
+        private string AdultCheck(Person p)
+        {
+            bool adult = p.ISAdult;
+            string message = string.Format("Age: {0} - Your an adult!", age);
+            if (adult != true)
+                message = string.Format("Age: {0} - You are not an adult!", age);           
+            return message;
+        }
+        
+        private string CheckIfDayIsBirthday(Person p)
+        {
+            bool bday = p.ISBirthday;
+            string message = "";
+            if (bday == true)
+                message = string.Format("Congratulations! Today is your birthday!");           
+            return message;
         }
 
         private string setDate()
