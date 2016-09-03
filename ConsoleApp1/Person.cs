@@ -20,7 +20,7 @@ namespace ConsoleApp
                 bool isAdult = true;
                 var age = CalculateAge(DateOfBirth);
                 if (age >= 18) { return isAdult; }
-                else { throw new ArgumentException("You are not old enough!"); }
+                else { isAdult = false; return isAdult; }
             }
         }
 
@@ -158,7 +158,7 @@ namespace ConsoleApp
 
 
         //Methods
-        private string CheckFirstName(string firstname)
+        internal string CheckFirstName(string firstname)
         {
             if (string.IsNullOrEmpty(firstname))
             {
@@ -166,25 +166,26 @@ namespace ConsoleApp
             }
             return firstname;
         }
-        private string CheckLastName(string lastname)
+        internal string CheckLastName(string lastname)
         {
             if (string.IsNullOrEmpty(lastname))
                 throw new ArgumentException("No lastname is applied!");
             return lastname;
         }
-        private DateTime DateValidation(DateTime dateofbirth)
+
+        internal DateTime DateValidation(DateTime dateofbirth)
         {
             var valDate = dateofbirth > DateTime.Now && dateofbirth != DateTime.MinValue;
             if (valDate == true) throw new ArgumentException("Your birthdate is not valid");
             return dateofbirth;
         }
 
-        private string CheckEmail(string email)
+        internal string CheckEmail(string email)
         {
             bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
             if (string.IsNullOrEmpty(email))
             {
-                throw new ArgumentException("Email input is empty");
+                return email;
             }
             if (isEmail != true)
             {
@@ -196,7 +197,7 @@ namespace ConsoleApp
             }
         }
 
-        private int CalculateAge(DateTime dateofbirth)
+        internal int CalculateAge(DateTime dateofbirth)
         {
             DateTime today = DateTime.Today;
             var age = today.Year - DateOfBirth.Year;
@@ -204,58 +205,7 @@ namespace ConsoleApp
             return age;
         }
 
-        private string GetChineseSign()
-        {
-            if (DateOfBirth != DateTime.MinValue)
-            {
-                EastAsianLunisolarCalendar chineseSign = new ChineseLunisolarCalendar();
-                int getSexYear = chineseSign.GetSexagenaryYear(DateOfBirth);
-                int getSexTerre = chineseSign.GetTerrestrialBranch(getSexYear);
-                string[] years = "Rat,Ox,Tiger,Rabbit,Dragon,Snake,Horse,Goat,Monkey,Rooster,Dog,Pig".Split(',');
-                string sign = years[getSexTerre - 1];
-                return years[getSexTerre - 1];
-            }
-            throw new ArgumentException("Cant assign your chinese sign.\n Check your birthdate");
-        }
-
-        private WesternStarsign GetSunSign()
-        {
-            if (DateOfBirth.Month != 0)
-            {
-                switch (DateOfBirth.Month)
-                {
-                    case 1:
-                        if (DateOfBirth.Day < 20) return WesternStarsign.Stenbocken; else return WesternStarsign.Vattumannen;
-                    case 2:
-                        if (DateOfBirth.Day < 19) return WesternStarsign.Vattumannen; else return WesternStarsign.Fiskarna;
-                    case 3:
-                        if (DateOfBirth.Day < 21) return WesternStarsign.Fiskarna; else return WesternStarsign.Väduren;
-                    case 4:
-                        if (DateOfBirth.Day < 20) return WesternStarsign.Väduren; else return WesternStarsign.Oxen;
-                    case 5:
-                        if (DateOfBirth.Day < 21) return WesternStarsign.Oxen; else return WesternStarsign.Tvillingarna;
-                    case 6:
-                        if (DateOfBirth.Day < 21) return WesternStarsign.Tvillingarna; else return WesternStarsign.Kräftan;
-                    case 7:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Kräftan; else return WesternStarsign.Lejonet;
-                    case 8:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Lejonet; else return WesternStarsign.Jungfrun;
-                    case 9:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Jungfrun; else return WesternStarsign.Vågen;
-                    case 10:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Vågen; else return WesternStarsign.Skorpionen;
-                    case 11:
-                        if (DateOfBirth.Day < 23) return WesternStarsign.Skorpionen; else return WesternStarsign.Skytten;
-                    case 12:
-                        if (DateOfBirth.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
-                    default:
-                        if (DateOfBirth.Day < 22) return WesternStarsign.Skytten; else return WesternStarsign.Stenbocken;
-                }
-            }
-            throw new ArgumentException("Cant assign a zodiac sign.\n Check your birthdate");
-        }
-
-        private List<string> GetScreenName()
+        internal List<string> GetScreenName()
         {
             DateTime dateNow = DateTime.Now;
             if (DateOfBirth != DateTime.MinValue)
@@ -273,21 +223,6 @@ namespace ConsoleApp
             throw new ArgumentException("No birthdate is assigned");
         }
 
-        private bool AdultCheck()
-        {
-            bool isAdult = true;
-            var age = CalculateAge(DateOfBirth);
-            if (age >= 18) { return isAdult; }
-            else { throw new ArgumentException("You are not old enough!"); }
-        }
 
-        internal bool CheckIfBirthday(DateTime dateofbirth)
-        {
-            bool isBirthday = true;
-            DateTime today = DateTime.Today;
-            if (dateofbirth.Month != today.Month || dateofbirth.Day != today.Day)
-            { isBirthday = false; return isBirthday; }
-            return isBirthday;
-        }
     }
 }
