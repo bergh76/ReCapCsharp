@@ -156,7 +156,6 @@ namespace ConsoleApp
             _screenname = ScreenName;
         }
 
-
         //Methods
         internal string CheckFirstName(string firstname)
         {
@@ -172,14 +171,12 @@ namespace ConsoleApp
                 throw new ArgumentException("No lastname is applied!");
             return lastname;
         }
-
         internal DateTime DateValidation(DateTime dateofbirth)
         {
             var valDate = dateofbirth > DateTime.Now && dateofbirth != DateTime.MinValue;
             if (valDate == true) throw new ArgumentException("Your birthdate is not valid");
             return dateofbirth;
         }
-
         internal string CheckEmail(string email)
         {
             bool isEmail = Regex.IsMatch(email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase);
@@ -196,7 +193,6 @@ namespace ConsoleApp
                 return email.ToLower();
             }
         }
-
         internal int CalculateAge(DateTime dateofbirth)
         {
             DateTime today = DateTime.Today;
@@ -204,7 +200,6 @@ namespace ConsoleApp
             if (DateOfBirth > today.AddYears(-age)) age--;
             return age;
         }
-
         internal List<string> GetScreenName()
         {
             DateTime dateNow = DateTime.Now;
@@ -223,6 +218,9 @@ namespace ConsoleApp
             throw new ArgumentException("No birthdate is assigned");
         }
 
-
+        //public override string ToString()
+        //{
+        //    return base.ToString();
+        //}
     }
 }
