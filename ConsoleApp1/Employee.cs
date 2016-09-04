@@ -32,6 +32,13 @@ namespace ConsoleApp
         {
             return _email;
         }
-        
+        public void ShowPayment()
+        {
+            string salary = string.Format("Transaction: {0}", _salary);
+            string email = string.Format("Paymentadress: {0}", _email);
+            string printOut = string.Format("{0}\n{1}", salary, email);
+            Console.WriteLine(printOut);
+        }
+
     }
 }

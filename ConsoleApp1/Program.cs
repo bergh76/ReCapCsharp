@@ -19,15 +19,19 @@ namespace ConsoleApp
             pOut._birthday = pOut.PrintOutDate();
             DateTime getDate = DateTime.ParseExact(pOut._birthday, "yyyyMMdd", CultureInfo.InvariantCulture,
                                        DateTimeStyles.None);
+            //pOut.GetFirstName();            
             Person p = new Person(pOut.GetFirstName(), pOut.GetLastName(), pOut.GetEmail(), getDate);
             pOut.age = p.CalculateAge(getDate);
-            PrintOutResutl(pOut, p);           
+            pOut.PrintOutResult(pOut, p);
+            Console.WriteLine("Press any key to continue....");
+            Console.ReadKey();
         }
-        
+
         private string GetFirstName()
         {
             Console.WriteLine("What is your firstname?:");
-            return _firstname = Console.ReadLine();
+            _firstname = Console.ReadLine();
+            return _firstname;
         }
 
         private string GetLastName()
@@ -72,20 +76,42 @@ namespace ConsoleApp
             return message;
         }
 
-        private static void PrintOutResutl(Program pOut, Person p)
+        private void PrintOutResult(Program pOut, Person p)
         {
+            //if (pOut.age > 0)
+            //{
+            //    Console.Clear();
+            //    Console.WriteLine("Your name is: {0} {1}", p.FirstName, p.LastName);
+            //    Console.WriteLine("Your date of birth is:{0}", pOut._birthday);
+            //    Console.WriteLine("{0}", pOut.CheckIfDayIsBirthday(p));
+            //    Console.WriteLine("{0}", pOut.AdultCheck(p));
+            //    Console.WriteLine("Your chinese sign is:{0}", p.ChineseSign);
+            //    Console.WriteLine("Your sunsign is:{0}", p.SunSign);
+            //    Employee emp = new Employee(25000, p.Email);
+            //    emp.ShowPayment();
+            //}
+            //Console.ReadLine();
+            string name = "";
+            string birthday = "";
+            string isBirthday = "";
+            string isAdult = "";
+            string csign = "";
+            string ssign = "";
+            string result = "";
             if (pOut.age > 0)
             {
                 Console.Clear();
-                Console.WriteLine("Your name is: {0} {1}", p.FirstName, p.LastName);
-                Console.WriteLine("Your date of birth is:{0}", pOut._birthday);
-                Console.WriteLine("{0}", pOut.CheckIfDayIsBirthday(p));
-                Console.WriteLine("{0}", pOut.AdultCheck(p));
-                Console.WriteLine("Your chinese sign is:{0}", p.ChineseSign);
-                Console.WriteLine("Your sunsign is:{0}", p.SunSign);
+                name = string.Format("Your name is: {0} {1}", p.FirstName, p.LastName);
+                birthday = string.Format("Your date of birth is:{0}", pOut._birthday);
+                isBirthday = string.Format("{0}", pOut.CheckIfDayIsBirthday(p));
+                isAdult = string.Format("{0}", pOut.AdultCheck(p));
+                csign = string.Format("Your chinese sign is:{0}", p.ChineseSign);
+                ssign = string.Format("Your sunsign is:{0}", p.SunSign);
+                result = string.Format("{0}\n{1}\n{2}\n{3}\n{4}\n{5}", name, birthday, isBirthday, isAdult, csign, ssign);
+                Console.WriteLine(result);
+                Employee emp = new Employee(25000, p.Email);
+                emp.ShowPayment();
             }
-            Console.ReadLine();
         }
-
     }
 }
